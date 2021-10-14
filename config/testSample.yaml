@@ -1,0 +1,43 @@
+    date: 1217               #只作为实验备注，可任意修改，不影响功能
+    gpu_available: '6'     #选用的GPU序号（训练支持多卡，测试单卡）
+    gpu_num: 1               #需要和上方GPU数量一致
+    onlyTrainMask: false     #是否只训练模糊区域预测子网络
+    useMask: false           #是否使用模糊区域预测子网络
+    fixMask: false           #是否固定模糊区域预测子网络
+    usingSA: false            #是否使用空间注意力模块
+    usingMaskLoss: false     #是否监督模糊区域预测子网络
+    usingSALoss: false        #是否监督空间注意力模块
+    finetune: false          #弃用
+    local: false             #弃用
+    other: ''                #只作为实验备注，可任意修改，不影响功能
+    
+    dataset: real            #只作为实验备注，可任意修改，不影响功能
+
+    train_sharp: /dataset/REDS_yf/train/sharp       #训练清晰数据的路径
+    train_blur: /dataset/REDS_yf/train/blur        #训练模糊数据的路径
+    
+    train_sharp2: /dataset/REDS_AUG/voc_sharp_image       #带模糊区域标注的训练清晰数据的路径，不需要时写作None
+    train_blur2: /dataset/REDS_AUG/voc_blur_image        #带模糊区域标注的训练模糊数据的路径，不需要时写作None
+    train_mask: /dataset/REDS_AUG/voc_blur_mask         #带模糊区域标注的训练模糊数据的路径，不需要时写作None
+  
+    test_sharp: /dataset/RealData/val/sharp        #测试用清晰数据的路径
+    test_blur: /dataset/RealData/val/blur         #测试用模糊数据的路径
+
+    resize_size: 0           #弃用
+    crop_size: 192           #训练数据裁剪的大小（长宽相同）
+    model_dir: ./model       #保存模型的位置
+    result_dir: ./result     #保存可视化结果的路径
+    
+    batchsize: 8            #数据batchsize
+
+    save_epoch: 1            #保存模型频率
+    lr: 0.001                #初始学习率
+    step: [150, 200, 300]    #学习率衰减时间（gamma=0.5）
+    
+    mask_pretrained_model: None #单独加载去模糊部分，训练全部网络时使用，None则不加载
+    sanet_pretrianed_model: None #单独加载模糊区域预测子网络，训练全部网络时使用，None则不加载
+    
+    pretrained_model: ./model/UNet_AUG_33_63 #加载预训练模型的位置，None则不加载
+
+    best_psnr: 0             #默认只会保存比这个值更高的模型
+    startEpoch: 0            #开始时的epoch轮数，finetune时可以修改
